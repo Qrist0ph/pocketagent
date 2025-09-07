@@ -136,6 +136,8 @@ uvicorn src.pocketagent_app:app --reload
 
 Docs: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
+<img width="1528" height="592" alt="{8705C21B-E321-4785-8438-206A98E24C31}" src="https://github.com/user-attachments/assets/7c8d2bce-fc5a-47a6-9acb-c9fab726f265" />
+
 ## Run Streamlit :
 
 ```bash
