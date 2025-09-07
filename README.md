@@ -2,8 +2,12 @@
 
 This repository provides a **reference implementation of a multi-agent system** built with [LangGraph](https://github.com/langchain-ai/langgraph).  
 It is intended as a **learning resource** for agent architectures and can also be used for **rapid prototyping** and **proof-of-concepts**.
-The MCP Integration is based on [LangChain MCP Adapters](https://github.com/langchain-ai/langchain-mcp-adapters)
+The MCP Integration is based on [LangChain MCP Adapters](https://github.com/langchain-ai/langchain-mcp-adapters).
 
+The Agent can be exposed
+ * via Command Line
+ * via REST API (FastApi)
+ * via Chat Website (Streamlit)
 ---
 
 ## Architecture Overview
