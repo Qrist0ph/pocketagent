@@ -128,6 +128,9 @@ export OPENAI_API_KEY=sk-123456789abcdef
 ```bash
 python3 src/pocketagent_cli.py 
 ```
+<img width="1215" height="353" alt="{25700465-2DB2-4064-A03D-BDD008EE8F26}" src="https://github.com/user-attachments/assets/d1dd738c-118d-4b6e-895e-4027dbe145f4" />
+
+
 ## Run API:
 
 ```bash
