@@ -143,3 +143,6 @@ streamlit run src/streamlit/chatbot.py
 ```
 
 http://localhost:8501/
+
+<img width="797" height="369" alt="{EB20555E-A51A-4287-B1A8-AC588E4F52DB}" src="https://github.com/user-attachments/assets/8ee10061-2a4f-4c60-85b2-8c049a48d29e" />
+
