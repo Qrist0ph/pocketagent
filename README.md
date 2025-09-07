@@ -102,10 +102,10 @@ flowchart TD
 
 ## Initialize Environment
 ```bash
-git clone https://github.com/Qrist0ph/vercel.pocketagent.git
+git clone https://github.com/Qrist0ph/pocketagent.git
 ```
 ```bash
-cd vercel.pocketagent
+cd pocketagent
 ```
 
 ```bash
