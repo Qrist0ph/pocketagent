@@ -1,0 +1,145 @@
+# LangGraph Multi-Agent Reference Implementation
+
+This repository provides a **reference implementation of a multi-agent system** built with [LangGraph](https://github.com/langchain-ai/langgraph).  
+It is intended as a **learning resource** for agent architectures and can also be used for **rapid prototyping** and **proof-of-concepts**.
+The MCP Integration is based on [LangChain MCP Adapters](https://github.com/langchain-ai/langchain-mcp-adapters)
+
+---
+
+## Architecture Overview
+
+```mermaid
+flowchart TD
+    START --> router
+    router -->|intent: weather| weather_agent
+    router -->|intent: travel| travel_agent
+    router -->|intent: chitchat| smalltalk
+    router -->|intent: rag| rag_agent
+    router -->|intent: return_agent| return_agent
+    router -->|intent: mcp_agent| mcp_agent
+
+    weather_agent --> weather_tools
+    weather_agent --> END
+    travel_agent --> travel_tools
+    travel_agent --> END
+    rag_agent --> condense
+    condense --> retrieve
+    retrieve --> generate
+    generate --> END
+    smalltalk --> END
+    return_agent --> return_output
+    return_output --> END
+
+    %% Add clickable links to all nodes except START and END
+    click router "https://github.com/Qrist0ph/vercel.pocketagent/blob/main/src/pocketagent/router_node.py" "Go to router_node.py" _blank
+    click weather_agent "https://github.com/Qrist0ph/vercel.pocketagent/blob/main/src/pocketagent/agents.py#L40" "Weather Agent" _blank
+    click travel_agent "https://github.com/Qrist0ph/vercel.pocketagent/blob/main/src/pocketagent/agents.py#L44" "Travel Agent" _blank
+    click smalltalk "https://github.com/Qrist0ph/vercel.pocketagent/blob/main/src/pocketagent/smalltalk_node.py#L16" "Smalltalk Agent" _blank
+    click rag_agent "https://github.com/Qrist0ph/vercel.pocketagent/blob/main/src/pocketagent/ragbot.py" "RAG Agent" _blank
+    click return_agent "https://github.com/Qrist0ph/vercel.pocketagent/blob/main/src/pocketagent/wizardagent.py#L28" "Return Agent" _blank
+    click mcp_agent "https://github.com/Qrist0ph/vercel.pocketagent/blob/main/src/pocketagent_cli.py#L37" "MCP Agent" _blank
+    click weather_tools "https://github.com/Qrist0ph/vercel.pocketagent/blob/main/src/pocketagent/agents.py#L40" "Weather Tools" _blank
+    click travel_tools "https://github.com/Qrist0ph/vercel.pocketagent/blob/main/src/pocketagent/agents.py#L44" "Travel Tools" _blank
+    click return_output "https://github.com/Qrist0ph/vercel.pocketagent/blob/main/src/pocketagent_app.py#L25" "Return Output" _blank
+
+    %% Node coloring
+    style weather_agent fill:#b6fcd5,stroke:#333,stroke-width:2px
+    style travel_agent fill:#b6fcd5,stroke:#333,stroke-width:2px
+    style weather_tools fill:#b6fcd5,stroke:#333,stroke-width:2px
+    style travel_tools fill:#b6fcd5,stroke:#333,stroke-width:2px
+    style smalltalk fill:#ffa500,stroke:#333,stroke-width:2px
+    style rag_agent fill:#87ceeb,stroke:#333,stroke-width:2px
+    style condense fill:#87ceeb,stroke:#333,stroke-width:2px
+    style retrieve fill:#87ceeb,stroke:#333,stroke-width:2px
+    style generate fill:#87ceeb,stroke:#333,stroke-width:2px
+    style return_agent fill:#ffb6c1,stroke:#333,stroke-width:2px
+    style return_output fill:#ffb6c1,stroke:#333,stroke-width:2px
+    style mcp_agent fill:#ff4c4c,stroke:#333,stroke-width:2px
+```
+
+---
+
+## Agent Concepts
+
+- **Intention-Based Routing**  
+  - Detects intent and routes to the appropriate sub-agent.  
+  👉 [router_node.py](src/pocketagent/router_node.py)
+
+- **RAG Agent**  
+  - Retrieval-Augmented Generation.  
+  - Answers product-related questions.  
+  - Data source: `product_faq.md`  
+  - Vectorized with **FAISS**.  
+  👉 [ragbot.py](src/pocketagent/ragbot.py)
+
+- **Form / Workflow Wizard**  
+  - Collects information like a form or guided workflow.  
+  - Detects when all required fields are filled.  
+  - Example: Return process → collects *email* + *order ID*.  
+  👉 [wizardagent.py](src/pocketagent/wizardagent.py)
+
+- **Small Talk Agent**  
+  - Just does some small talk.  
+  👉 [smalltalk_node.py](ssrc/pocketagent/smalltalk_node.py)  
+
+
+- **Tool Agents**  
+  - Call external (mock) tools.  
+  - Examples: Weather queries, hotel lookup.  
+  👉 [weather_tools.py](src/pocketagent/tools/weather_tools.py)  
+  👉 [travel_tools.py](src/pocketagent/tools/travel_tools.py)
+
+- **MCP Agent**  
+  - Queries a [Model Context Protocol (MCP)](https://github.com/modelcontextprotocol) server for available tools.  
+  - Includes a minimal MCP server implementation.  
+  👉 [pocketagent_cli.py](src/pocketagent_cli.py)
+
+---
+
+# Getting Started
+
+# Run on Linux & Mac & Windows WSL
+
+## Initialize Environment
+```bash
+git clone https://github.com/Qrist0ph/vercel.pocketagent.git
+```
+```bash
+cd vercel.pocketagent
+```
+
+```bash
+python3 -m venv .venv
+```
+
+```bash
+source .venv/bin/activate
+```
+
+```bash
+pip install -r requirements.txt
+```
+
+```bash
+export OPENAI_API_KEY=sk-123456789abcdef
+```
+
+## Run via Command Line
+```bash
+python3 src/pocketagent_cli.py 
+```
+## Run API:
+
+```bash
+uvicorn src.pocketagent_app:app --reload
+```
+
+Docs: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+
+## Run Streamlit :
+
+```bash
+streamlit run src/streamlit/chatbot.py 
+```
+
+http://localhost:8501/

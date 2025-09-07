@@ -1,0 +1,34 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Python Debugger: Current File",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "${file}",
+			"console": "integratedTerminal"
+,
+			"env": {
+				"OPENAI_API_KEY": "sk-1234"
+			}
+		}
+		{
+			"name": "FastAPI: Uvicorn Server",
+			"type": "python",
+			"request": "launch",
+			"module": "uvicorn",
+			"args": [
+				"src.api.index:app",
+				"--reload"
+			],
+			"cwd": "${workspaceFolder}",
+			"console": "integratedTerminal",
+			"env": {
+				"OPENAI_API_KEY": "sk-1234"
+			}
+		}
+	]
+}

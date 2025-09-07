@@ -1,0 +1,41 @@
+{
+  "docs": [
+    "Gartenstuhl\nMaterial? Wetterfestes Kunststoffgeflecht.\nFarbe? Anthrazit.\nPreis? 34,99 EUR\nVerfügbarkeit? Auf Lager",
+    "Produkt-FAQ",
+    "T-Shirt Classic\nWas ist das Material? Hochwertige Baumwolle.\nWelche Farben gibt es? Weiß.\nPreis? 19,99 EUR\nVerfügbarkeit? Auf Lager",
+    "Hoodie Premium\nWas ist das Material? Warmer Stoff mit Logo-Print.\nPreis? 39,99 EUR\nVerfügbarkeit? Nur noch wenige verfügbar",
+    "Sneaker Urban\nFür welche Zwecke geeignet? Alltag und Sport.\nPreis? 59,99 EUR\nVerfügbarkeit? Auf Lager",
+    "Rucksack Travel\nBesonderheiten? Viele Fächer, robust.\nPreis? 49,99 EUR\nVerfügbarkeit? Ausverkauft",
+    "Mütze Winter\nMaterial? Weiche Strickware.\nPreis? 14,99 EUR\nVerfügbarkeit? Auf Lager"
+  ],
+  "metas": [
+    {
+      "source": "/workspaces/playground/pocketrag/product_faq.md",
+      "chunk_id": 0
+    },
+    {
+      "source": "/workspaces/playground/pocketrag/product_faq.md",
+      "chunk_id": 1
+    },
+    {
+      "source": "/workspaces/playground/pocketrag/product_faq.md",
+      "chunk_id": 2
+    },
+    {
+      "source": "/workspaces/playground/pocketrag/product_faq.md",
+      "chunk_id": 3
+    },
+    {
+      "source": "/workspaces/playground/pocketrag/product_faq.md",
+      "chunk_id": 4
+    },
+    {
+      "source": "/workspaces/playground/pocketrag/product_faq.md",
+      "chunk_id": 5
+    },
+    {
+      "source": "/workspaces/playground/pocketrag/product_faq.md",
+      "chunk_id": 6
+    }
+  ]
+}

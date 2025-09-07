@@ -1,0 +1,14 @@
+chromadb
+faiss-cpu
+fastapi
+langchain
+langchain-community
+langchain-core
+langchain-openai
+langgraph
+openai
+pydantic
+uvicorn
+fastmcp
+langchain-mcp-adapters
+streamlit
