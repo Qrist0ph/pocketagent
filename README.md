@@ -35,16 +35,16 @@ flowchart TD
     return_output --> END
 
     %% Add clickable links to all nodes except START and END
-    click router "https://github.com/Qrist0ph/vercel.pocketagent/blob/main/src/pocketagent/router_node.py" "Go to router_node.py" _blank
-    click weather_agent "https://github.com/Qrist0ph/vercel.pocketagent/blob/main/src/pocketagent/agents.py#L40" "Weather Agent" _blank
-    click travel_agent "https://github.com/Qrist0ph/vercel.pocketagent/blob/main/src/pocketagent/agents.py#L44" "Travel Agent" _blank
-    click smalltalk "https://github.com/Qrist0ph/vercel.pocketagent/blob/main/src/pocketagent/smalltalk_node.py#L16" "Smalltalk Agent" _blank
-    click rag_agent "https://github.com/Qrist0ph/vercel.pocketagent/blob/main/src/pocketagent/ragbot.py" "RAG Agent" _blank
-    click return_agent "https://github.com/Qrist0ph/vercel.pocketagent/blob/main/src/pocketagent/wizardagent.py#L28" "Return Agent" _blank
-    click mcp_agent "https://github.com/Qrist0ph/vercel.pocketagent/blob/main/src/pocketagent_cli.py#L37" "MCP Agent" _blank
-    click weather_tools "https://github.com/Qrist0ph/vercel.pocketagent/blob/main/src/pocketagent/agents.py#L40" "Weather Tools" _blank
-    click travel_tools "https://github.com/Qrist0ph/vercel.pocketagent/blob/main/src/pocketagent/agents.py#L44" "Travel Tools" _blank
-    click return_output "https://github.com/Qrist0ph/vercel.pocketagent/blob/main/src/pocketagent_app.py#L25" "Return Output" _blank
+    click router "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent/router_node.py" "Go to router_node.py" _blank
+    click weather_agent "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent/agents.py#L40" "Weather Agent" _blank
+    click travel_agent "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent/agents.py#L44" "Travel Agent" _blank
+    click smalltalk "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent/smalltalk_node.py#L16" "Smalltalk Agent" _blank
+    click rag_agent "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent/ragbot.py" "RAG Agent" _blank
+    click return_agent "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent/wizardagent.py#L28" "Return Agent" _blank
+    click mcp_agent "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent_cli.py#L37" "MCP Agent" _blank
+    click weather_tools "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent/agents.py#L40" "Weather Tools" _blank
+    click travel_tools "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent/agents.py#L44" "Travel Tools" _blank
+    click return_output "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent_app.py#L25" "Return Output" _blank
 
     %% Node coloring
     style weather_agent fill:#b6fcd5,stroke:#333,stroke-width:2px
