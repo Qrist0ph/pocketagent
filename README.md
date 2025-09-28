@@ -138,7 +138,7 @@ python3 src/pocketagent_cli.py
 ## Run API:
 
 ```bash
-uvicorn src.pocketagent_app:app --reload
+uvicorn src.api.index:app --reload
 ```
 
 Docs: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
@@ -155,3 +155,10 @@ http://localhost:8501/
 
 <img width="797" height="369" alt="{EB20555E-A51A-4287-B1A8-AC588E4F52DB}" src="https://github.com/user-attachments/assets/8ee10061-2a4f-4c60-85b2-8c049a48d29e" />
 
+## Agent2Agent Server
+
+```bash
+python3 src/a2a/__main__.py 
+```bash
+
+http://localhost:10000/.well-known/agent-card.json
