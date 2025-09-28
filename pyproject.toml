@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pocketagent"
+version = "0.1.0"
+description = "AI agent with multi-modal capabilities"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "chromadb",
+    "faiss-cpu",
+    "fastapi",
+    "langchain",
+    "langchain-community",
+    "langchain-core",
+    "langchain-openai>=0.1.0",
+    "langchain-google-genai>=2.0.10",
+    "langchain-mcp-adapters",
+    "langgraph>=0.3.18",
+    "openai",
+    "pydantic>=2.10.6",
+    "uvicorn>=0.34.2",
+    "fastmcp",
+    "streamlit",
+    "click>=8.1.8",
+    "httpx>=0.28.1",
+    "python-dotenv>=1.1.0",
+    "sse-starlette>=2.3.6",
+    "starlette>=0.46.2",
+    "a2a-sdk>=0.3.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pocketagent"]

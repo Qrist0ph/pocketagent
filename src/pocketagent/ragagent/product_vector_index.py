@@ -1,13 +1,7 @@
-# PRODUCT_TEXTS = [
-#     "Produkt: T-Shirt Classic | Beschreibung: Hochwertiges Baumwoll-T-Shirt in Weiß | Preis: 19,99 EUR | Verfügbarkeit: Auf Lager",
-#     "Produkt: Hoodie Premium | Beschreibung: Warmer Kapuzenpullover mit Logo-Print | Preis: 39,99 EUR | Verfügbarkeit: Nur noch wenige verfügbar",
-#     "Produkt: Sneaker Urban | Beschreibung: Stylischer Sneaker für Alltag und Sport | Preis: 59,99 EUR | Verfügbarkeit: Auf Lager",
-#     "Produkt: Rucksack Travel | Beschreibung: Robuster Rucksack mit vielen Fächern | Preis: 49,99 EUR | Verfügbarkeit: Ausverkauft",
-#     "Produkt: Mütze Winter | Beschreibung: Weiche Strickmütze für kalte Tage | Preis: 14,99 EUR | Verfügbarkeit: Auf Lager"
-# ]
+
+import os
 from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
-import os
 
 class ProductVectorIndex:
     def __init__(self, emb, path="../faiss_index"):

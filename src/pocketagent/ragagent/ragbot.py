@@ -1,9 +1,10 @@
+
 # pip install langgraph langchain-openai langchain-core langchain-community faiss-cpu chromadb
 # https://chatgpt.com/g/g-p-68a58e7dcc088191a1f54a89b6bd7f02-rag-template/c/689f942c-23cc-832d-83e1-ba85ca69057b
 
+
 from typing import List, TypedDict, Any
 from langgraph.graph import StateGraph, START, END
-
 from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
 from langchain_core.prompts import ChatPromptTemplate

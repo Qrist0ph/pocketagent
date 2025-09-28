@@ -1,9 +1,6 @@
+
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
-from langchain_openai import ChatOpenAI
-
-# Import the state type
-from .state_types import S
-
+from ..state_types import S
 
 class SmalltalkNode:
     """Node responsible for handling casual conversation."""
@@ -13,9 +10,9 @@ class SmalltalkNode:
             raise ValueError("llm parameter is required for SmalltalkNode")
         self.llm = llm
 
-    def process(self, state: S) -> S:
+    def _process(self, state: S) -> S:
         """
-        Process the current state and generate a smalltalk response.
+         Process the current state and generate a smalltalk response.
 
         Args:
             state: Current conversation state
@@ -35,4 +32,13 @@ class SmalltalkNode:
         state["messages"].append(AIMessage(content=reply))
         return state
 
-
+    def get_graph(self):
+        """
+        Returns a compiled LangGraph StateGraph object using process() as the node.
+        """
+        from langgraph.graph import StateGraph, START, END
+        graph = StateGraph(S)
+        graph.add_node("smalltalk", self._process)
+        graph.add_edge(START, "smalltalk")
+        graph.add_edge("smalltalk", END)
+        return graph.compile()

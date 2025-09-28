@@ -1,9 +1,48 @@
-# pip install langgraph langchain-openai pydantic
+
 from typing import Literal, Dict, Any
 from langgraph.prebuilt import create_react_agent
 from langgraph.checkpoint.memory import MemorySaver
 
 class ReturnAgent:
+    def get_graph(self):
+        """
+        Returns a compiled LangGraph StateGraph for the return agent subgraph.
+        Nodes: 'return_agent' (react agent), 'return_output' (output node)
+        """
+        from langgraph.graph import StateGraph, START, END
+        from pocketagent import S
+        graph = StateGraph(S)
+        graph.add_node("return_agent", self.react_agent)
+        graph.add_node("return_output", self.return_data_output_node)
+        graph.add_edge(START, "return_agent")
+        graph.add_edge("return_agent", "return_output")
+        graph.add_edge("return_output", END)
+        return graph.compile()
+    def return_data_output_node(self, state):
+        thread_id = state.get("thread_id", "demo")
+        self.set_thread_id(thread_id)
+        form_data = self._get_form(thread_id)
+        answers = form_data.get("answers", {})
+        required_fields = ["email", "order_number"]
+        all_fields_filled = all(field in answers and answers[field] for field in required_fields)
+        confirmed = form_data.get("confirmed", False)
+        confirmed = True
+        if all_fields_filled and confirmed:
+            print("=== RETOUR-DATEN VOLLSTÄNDIG ===")
+            print(f"Thread ID: {thread_id}")
+            print(f"E-Mail: {answers.get('email')}")
+            print(f"Bestellnummer: {answers.get('order_number')}")
+            print("Status: Retoure wird bearbeitet")
+            print("================================")
+        else:
+            print("=== RETOUR-DATEN UNVOLLSTÄNDIG ===")
+            print(f"Thread ID: {thread_id}")
+            print(f"E-Mail: {'✓' if 'email' in answers else '✗'} {answers.get('email', 'Nicht angegeben')}")
+            print(f"Bestellnummer: {'✓' if 'order_number' in answers else '✗'} {answers.get('order_number', 'Nicht angegeben')}")
+            print(f"Bestätigt: {'✓' if confirmed else '✗'}")
+            print("Warten auf weitere Eingaben...")
+            print("===================================")
+        return state
     REQUIRED_FIELDS = ["email", "order_number"]
     
     SYSTEM_PROMPT = """Du bist ein Retouren-Agent für einen Online-Shop.

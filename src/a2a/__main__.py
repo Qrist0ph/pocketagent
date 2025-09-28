@@ -1,0 +1,112 @@
+# python3 src/a2a/__main__.py 
+# http://localhost:10000/.well-known/agent-card.json
+# python3 src/a2a/test_client.py 
+import logging
+import os
+import sys
+
+import click
+import httpx
+import uvicorn
+
+from a2a.server.apps import A2AStarletteApplication
+from a2a.server.request_handlers import DefaultRequestHandler
+from a2a.server.tasks import (
+    BasePushNotificationSender,
+    InMemoryPushNotificationConfigStore,
+    InMemoryTaskStore,
+)
+from a2a.types import (
+    AgentCapabilities,
+    AgentCard,
+    AgentSkill,
+)
+from dotenv import load_dotenv
+
+from pocketagent.pocketagent_app import PocketAgentApp
+from agent_executor import CurrencyAgentExecutor
+
+
+load_dotenv()
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+class MissingAPIKeyError(Exception):
+    """Exception for missing API key."""
+
+
+@click.command()
+@click.option('--host', 'host', default='localhost')
+@click.option('--port', 'port', default=10000)
+def main(host, port):
+    """Starts the Currency Agent server."""
+    # try:
+    if os.getenv('model_source', 'google') == 'google':
+        if not os.getenv('GOOGLE_API_KEY'):
+            raise MissingAPIKeyError(
+                'GOOGLE_API_KEY environment variable not set.'
+            )
+    else:
+        if not os.getenv('TOOL_LLM_URL'):
+            raise MissingAPIKeyError(
+                'TOOL_LLM_URL environment variable not set.'
+            )
+        if not os.getenv('TOOL_LLM_NAME'):
+            raise MissingAPIKeyError(
+                'TOOL_LLM_NAME environment not variable not set.'
+            )
+
+    capabilities = AgentCapabilities(streaming=True, push_notifications=True)
+    skill = AgentSkill(
+        id='convert_currency',
+        name='Mega Currency Exchange Rates Tool',
+        description='Helps with exchange values between various currencies',
+        tags=['currency conversion', 'currency exchange'],
+        examples=['What is exchange rate between USD and GBP?'],
+    )
+    agent_card = AgentCard(
+        name='Demo Agent Implementation',
+        description='Demo agent that uses PocketAgent with RAG and MCP capabilities',
+        url=f'http://{host}:{port}/',
+        version='1.0.0',
+        # default_input_modes=CurrencyAgent.SUPPORTED_CONTENT_TYPES,
+        # default_output_modes=CurrencyAgent.SUPPORTED_CONTENT_TYPES,
+        
+        default_input_modes=['text', 'text/plain'],
+        default_output_modes=['text', 'text/plain'],
+        
+        capabilities=capabilities,
+        skills=[skill],
+    )
+
+
+    # --8<-- [start:DefaultRequestHandler]
+    httpx_client = httpx.AsyncClient()
+    push_config_store = InMemoryPushNotificationConfigStore()
+    push_sender = BasePushNotificationSender(httpx_client=httpx_client,
+                    config_store=push_config_store)
+    request_handler = DefaultRequestHandler(
+        agent_executor=CurrencyAgentExecutor(),
+        task_store=InMemoryTaskStore(),
+        push_config_store=push_config_store,
+        push_sender= push_sender
+    )
+    server = A2AStarletteApplication(
+        agent_card=agent_card, http_handler=request_handler
+    )
+
+    uvicorn.run(server.build(), host=host, port=port)
+    # --8<-- [end:DefaultRequestHandler]
+
+    # except MissingAPIKeyError as e:
+    #     logger.error(f'Error: {e}')
+    #     sys.exit(1)
+    # except Exception as e:
+    #     logger.error(f'An error occurred during server startup: {e}')
+    #     sys.exit(1)
+
+
+if __name__ == '__main__':
+    main()

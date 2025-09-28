@@ -2,6 +2,7 @@
 Shared type definitions for the PocketAgent application.
 """
 
+
 from typing_extensions import TypedDict, Annotated
 from langgraph.graph.message import add_messages, AnyMessage
 
