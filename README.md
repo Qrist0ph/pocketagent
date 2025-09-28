@@ -74,29 +74,29 @@ flowchart TD
   - Answers product-related questions.  
   - Data source: `product_faq.md`  
   - Vectorized with **FAISS**.  
-  👉 [ragbot.py](src/pocketagent/ragbot.py)
+  👉 [ragbot.py](src/pocketagent/ragagent/ragagent.py)
 
 - **Form / Workflow Wizard**  
   - Collects information like a form or guided workflow.  
   - Detects when all required fields are filled.  
   - Example: Return process → collects *email* + *order ID*.  
-  👉 [wizardagent.py](src/pocketagent/wizardagent.py)
+  👉 [wizardagent.py](src/pocketagent/returnagent/wizardagent.py)
 
 - **Small Talk Agent**  
   - Just does some small talk.  
-  👉 [smalltalk_node.py](ssrc/pocketagent/smalltalk_node.py)  
+  👉 [smalltalk_node.py](src/pocketagent/smalltalk_agent/smalltalk_node.py)  
 
 
 - **Tool Agents**  
   - Call external (mock) tools.  
   - Examples: Weather queries, hotel lookup.  
-  👉 [weather_tools.py](src/pocketagent/tools/weather_tools.py)  
-  👉 [travel_tools.py](src/pocketagent/tools/travel_tools.py)
+  👉 [weather_tools.py](src/pocketagent/TravelAgent/agent.py)  
+
 
 - **MCP Agent**  
   - Queries a [Model Context Protocol (MCP)](https://github.com/modelcontextprotocol) server for available tools.  
   - Includes a minimal MCP server implementation.  
-  👉 [pocketagent_cli.py](src/pocketagent_cli.py)
+  👉 [pocketagent_cli.py](src/mcpagent/mcpagent.py)
 
 ---
 
