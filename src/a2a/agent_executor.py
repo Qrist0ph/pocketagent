@@ -82,7 +82,7 @@ class CurrencyAgentExecutor(AgentExecutor):
     # execution per invoke
     # for streaming check https://github.com/a2aproject/a2a-samples/blob/main/samples/python/agents/langgraph/app/agent_executor.py#L33
     async def execute(self,context: RequestContext,event_queue: EventQueue) -> None:
-        result = await self.agent.invoke()
+        result = await self.agent.invoke("hello hast du rucksäcke" )
         await event_queue.enqueue_event(new_agent_text_message(result))
     
 

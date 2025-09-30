@@ -48,5 +48,8 @@ class PocketAgentApp:
         return  g.compile(checkpointer=self.memory_saver)
     
     
-    async def invoke(self) -> str:
-        return 'Hellooooo World'
+    async def invoke(self,query) -> str:
+        print( f"Invoking PocketAgentApp with query: {query}" )
+        config = {"configurable": {"thread_id": "thread_id"}}
+        out  = await self.get_graph().ainvoke({"messages": [HumanMessage(content=query)]},config) 
+        return out["messages"][-1].content

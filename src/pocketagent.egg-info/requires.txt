@@ -1,8 +1,0 @@
-fastapi
-langchain-openai
-langgraph
-uvicorn
-pydantic
-langchain-core
-langchain-mcp-adapters
-typing-extensions

@@ -14,7 +14,13 @@ The Agent can be exposed
 
 ```mermaid
 flowchart TD
-    START --> router
+    %% Entry points
+    CLI[Command Line] --> pocketagent_app
+    API[API] --> pocketagent_app
+    Streamlit[Streamlit] --> pocketagent_app
+    A2A[Agent2Agent Server] --> pocketagent_app
+    
+    pocketagent_app --> router
     router -->|intent: weather| travel_agent
     router -->|intent: travel| travel_agent
     router -->|intent: chitchat| smalltalk
@@ -33,9 +39,14 @@ flowchart TD
     return_agent --> return_output
     return_output --> END
 
-    %% Add clickable links to all nodes except START and END
+    %% Add clickable links to all nodes except END
+    click pocketagent_app "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent/pocketagent_app.py" "PocketAgent App" _blank
     click router "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent/router_node.py" "Go to router_node.py" _blank
-    click weather_agent "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent/TravelAgent/agent.py" "Weather Agent" _blank
+    click CLI "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent_cli.py" "Command Line Interface" _blank
+    click API "https://github.com/Qrist0ph/pocketagent/blob/main/src/api/index.py" "REST API" _blank
+    click Streamlit "https://github.com/Qrist0ph/pocketagent/blob/main/src/streamlit/chatbot.py" "Streamlit Chat Interface" _blank
+    click A2A "https://github.com/Qrist0ph/pocketagent/blob/main/src/a2a/__main__.py" "Agent2Agent Server" _blank
+
     click travel_agent "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent/TravelAgent/agent.py" "Travel Agent" _blank
     click smalltalk "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent/smalltalk_agent/smalltalk_node.py" "Smalltalk Agent" _blank
     click rag_agent "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent/ragagent/ragbot.py" "RAG Agent" _blank
@@ -43,10 +54,13 @@ flowchart TD
     click mcp_agent "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent/mcpagent/mcpagent.py" "MCP Agent" _blank
     click weather_tools "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent/TravelAgent/agent.py" "Weather Tools" _blank
     click travel_tools "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent/TravelAgent/agent.py" "Travel Tools" _blank
-    click return_output "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent/pocketagent_app.py" "Return Output" _blank
+    click return_output "https://github.com/Qrist0ph/pocketagent/blob/main/src/pocketagent/returnagent/wizardagent.py#L21" "Return Output" _blank
 
     %% Node coloring
-    style weather_agent fill:#b6fcd5,stroke:#333,stroke-width:2px
+    style CLI fill:#e1f5fe,stroke:#333,stroke-width:2px
+    style API fill:#e1f5fe,stroke:#333,stroke-width:2px
+    style Streamlit fill:#e1f5fe,stroke:#333,stroke-width:2px
+    style A2A fill:#e1f5fe,stroke:#333,stroke-width:2px
     style travel_agent fill:#b6fcd5,stroke:#333,stroke-width:2px
     style weather_tools fill:#b6fcd5,stroke:#333,stroke-width:2px
     style travel_tools fill:#b6fcd5,stroke:#333,stroke-width:2px
@@ -89,13 +103,13 @@ flowchart TD
 - **Tool Agents**  
   - Call external (mock) tools.  
   - Examples: Weather queries, hotel lookup.  
-  👉 [weather_tools.py](src/pocketagent/TravelAgent/agent.py)  
+  👉 [agent.py](src/pocketagent/TravelAgent/agent.py)  
 
 
 - **MCP Agent**  
   - Queries a [Model Context Protocol (MCP)](https://github.com/modelcontextprotocol) server for available tools.  
   - Includes a minimal MCP server implementation.  
-  👉 [pocketagent_cli.py](src/mcpagent/mcpagent.py)
+  👉 [mcpagent.py](src/mcpagent/mcpagent.py)
 
 ---
 
@@ -158,6 +172,12 @@ http://localhost:8501/
 
 ```bash
 python3 src/a2a/__main__.py 
-```bash
+```
 
 http://localhost:10000/.well-known/agent-card.json
+
+### A2A Test Client
+
+```bash
+ python3 src/a2a/test_client.py 
+```

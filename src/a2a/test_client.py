@@ -27,7 +27,10 @@ async def main() -> None:
 
     base_url = 'http://localhost:10000'
 
-    async with httpx.AsyncClient() as httpx_client:
+    # Configure timeout settings - increase these values as needed
+    timeout = httpx.Timeout(30.0, connect=10.0)  # 30s total, 10s connect
+    
+    async with httpx.AsyncClient(timeout=timeout) as httpx_client:
         # Initialize A2ACardResolver
         resolver = A2ACardResolver(
             httpx_client=httpx_client,

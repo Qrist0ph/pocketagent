@@ -1,6 +1,8 @@
+# pip install -e .
 # python3 src/a2a/__main__.py 
 # http://localhost:10000/.well-known/agent-card.json
 # python3 src/a2a/test_client.py 
+
 import logging
 import os
 import sys
@@ -23,7 +25,6 @@ from a2a.types import (
 )
 from dotenv import load_dotenv
 
-from pocketagent.pocketagent_app import PocketAgentApp
 from agent_executor import CurrencyAgentExecutor
 
 
@@ -83,7 +84,9 @@ def main(host, port):
 
 
     # --8<-- [start:DefaultRequestHandler]
-    httpx_client = httpx.AsyncClient()
+    # Configure timeout settings for the server's httpx client
+    timeout = httpx.Timeout(30.0, connect=10.0)  # 30s total, 10s connect
+    httpx_client = httpx.AsyncClient(timeout=timeout)
     push_config_store = InMemoryPushNotificationConfigStore()
     push_sender = BasePushNotificationSender(httpx_client=httpx_client,
                     config_store=push_config_store)
