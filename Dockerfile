@@ -11,8 +11,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy project files
 COPY . .
 
+# Add src directory to Python path
+ENV PYTHONPATH="/workspace/pocketrag/src"
+
 # Expose port 8000 for the FastAPI app
 EXPOSE 8000
 
 # Default command to run the FastAPI app with uvicorn
-CMD ["uvicorn", "api.index:app", "--reload", "--host", "0.0.0.0", "--root-path", "/dev/pocketagent"]
+CMD ["uvicorn", "src.api.index:app", "--reload", "--host", "0.0.0.0"]
