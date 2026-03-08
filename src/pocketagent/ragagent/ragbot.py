@@ -75,7 +75,7 @@ class RAGBot:
     # (b) Retrieve
     def retrieve_node(self, state: RAGState) -> RAGState:
         q = state.get("condensed_question") or next((m["content"] for m in state["messages"] if m["role"] == "user"), "")
-        state["context"] = self.retriever.get_relevant_documents(q)
+        state["context"] = self.retriever.invoke(q)
         state.setdefault("checkpoints", []).append({"step": "retrieve", "state": dict(state)})
         return state
 

@@ -10,16 +10,7 @@ class SmalltalkNode:
             raise ValueError("llm parameter is required for SmalltalkNode")
         self.llm = llm
 
-    def _process(self, state: S) -> S:
-        """
-         Process the current state and generate a smalltalk response.
-
-        Args:
-            state: Current conversation state
-
-        Returns:
-            Updated state with AI response added
-        """
+    def _process(self, state: S) -> dict:
         msgs = state["messages"]
         last_user = next((m for m in reversed(msgs) if m.type == "human"), msgs[-1])
         q = last_user.content if isinstance(last_user.content, str) else ""
@@ -29,8 +20,7 @@ class SmalltalkNode:
             HumanMessage(content=q)
         ]).content
 
-        state["messages"].append(AIMessage(content=reply))
-        return state
+        return {"messages": [AIMessage(content=reply)]}
 
     def get_graph(self):
         """
