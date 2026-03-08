@@ -58,21 +58,21 @@ class RouterNode:
                 label = "chitchat"
 
         if "chitchat" in label or "smalltalk" in label:
-            state["intent"] = "chitchat"
-            state["chitchat"] = True
+            intent = "chitchat"
+            chitchat = True
         elif "rag" in label:
-            state["intent"] = "rag"
-            state["chitchat"] = False
+            intent = "rag"
+            chitchat = False
         elif "return_agent" in label:
-            state["intent"] = "return_agent"
-            state["chitchat"] = False
+            intent = "return_agent"
+            chitchat = False
         elif "mcp_agent" in label:
-            state["intent"] = "mcp_agent"
-            state["chitchat"] = False
+            intent = "mcp_agent"
+            chitchat = False
         else:
-            state["intent"] = "travel" if ("travel" in label or "hotel" in label) else "weather"
-            state["chitchat"] = False
+            intent = "travel" if ("travel" in label or "hotel" in label) else "weather"
+            chitchat = False
 
-        print(f"Classified intent: {state['intent']}")
-        return state
+        print(f"Classified intent: {intent}")
+        return {"intent": intent, "chitchat": chitchat}
 

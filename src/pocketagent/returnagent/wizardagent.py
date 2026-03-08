@@ -26,7 +26,6 @@ class ReturnAgent:
         required_fields = ["email", "order_number"]
         all_fields_filled = all(field in answers and answers[field] for field in required_fields)
         confirmed = form_data.get("confirmed", False)
-        confirmed = True
         if all_fields_filled and confirmed:
             print("=== RETOUR-DATEN VOLLSTÄNDIG ===")
             print(f"Thread ID: {thread_id}")

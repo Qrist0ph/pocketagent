@@ -1,5 +1,5 @@
 
-from langgraph.prebuilt import create_react_agent, ToolNode
+from langgraph.prebuilt import create_react_agent
 from langchain_core.tools import tool
 
 @tool
@@ -42,30 +42,20 @@ class TravelWeatherAgent:
             self.llm,
             tools=[find_hotel]
         )
-        self.weather_tools = ToolNode(tools=[get_weather])
-        self.travel_tools = ToolNode(tools=[find_hotel])
 
-    def router(self, state):
-        intent = getattr(state, "intent", None) or state.get("intent", None)
-        print(f"Travel Weather  Detected intent: {intent}")
-        if intent == "weather":
-            state["next"] = "weather"
-        elif intent == "travel":
-            state["next"] = "travel"
-        else:
-            state["next"] = "weather"  # default fallback
-        print(f"Travel Weather Routing to: {state['next']}")
-        return state
+    def _route_by_intent(self, state) -> str:
+        intent = state.get("intent", "weather")
+        dest = intent if intent in ("weather", "travel") else "weather"
+        print(f"TravelWeather routing to: {dest}")
+        return dest
 
     def get_graph(self):
         from langgraph.graph import StateGraph, START, END
         from ..state_types import S
         graph = StateGraph(S)
-        graph.add_node("router", self.router)
         graph.add_node("weather", self.weather_react_agent)
         graph.add_node("travel", self.travel_react_agent)
-        graph.add_edge(START, "router")
-        graph.add_conditional_edges("router", lambda s: s["next"], {"weather": "weather", "travel": "travel"})
+        graph.add_conditional_edges(START, self._route_by_intent, {"weather": "weather", "travel": "travel"})
         graph.add_edge("weather", END)
         graph.add_edge("travel", END)
         return graph.compile()
